@@ -1,0 +1,154 @@
+/*---------------------------------------------------------------
+# Package - Joomla Template based on Sboost Framework   
+# ---------------------------------------------------------------
+# Author - olwebdesign http://www.olwebdesign.com
+# Copyright (C) 2008 - 2017 olwebdesign.com. All Rights Reserved.
+# Websites: http://www.olwebdesign.com
+-----------------------------------------------------------------*/
+
+/*Module type SP_XHTML*/
+.mod-wrapper,.mod-wrapper-flat {position:relative}
+.module.menu{padding:15px}
+
+.mod-wrapper ul{list-style:none;margin:0;padding:0}
+.mod-wrapper li{background:none;font-size:12px;margin:0;padding:4px 0px}
+.mod-wrapper li li{margin-left:10px;border-bottom:0!important}
+.mod-wrapper li a{text-decoration:none}
+.mod-wrapper li:hover > a, .mod-wrapper li.active > a{text-decoration:none}
+
+/*Suffix menu*/
+.module.menu ul.menu li {padding:8px 10px;margin:0;background:none}
+.module.menu ul.menu li a {padding:0;margin:0}
+.module.menu ul.menu li:hover,
+.module.menu ul.menu li.active {background:#fbfbfb}
+.module.menu ul.menu li:hover > a {background:none}
+/*Start Module Variations*/
+
+/*Module Type Menu*/
+.mod-wrapper-menu {margin-top:8px}
+.mod-wrapper-menu h3.header{font-size:12px;font-weight:700;color:#000;margin:0;padding:2px 5px}
+.mod-wrapper-menu ul{list-style:none;margin:0;padding:0}
+.mod-wrapper-menu li{font-size:11px;display:block;text-decoration:none;margin:0;padding:4px}
+.mod-wrapper-menu li a:hover{text-decoration:underline}
+
+.white {
+	color: #333;
+	background-color: #fff;
+	margin: 0 auto 10px auto;
+	border: 1px solid #f1f1f1;
+	padding: 5px 10px;
+}
+.white:hover {
+	color: #333;
+	background-color: #f9f9f9;
+}
+.beige {
+	color: #000;
+	background-color: #e3e1df;
+	margin: 0 auto 10px auto;
+	padding: 5px 10px;
+	border: 1px solid #fff;
+}
+
+.greys {
+	color: #333;
+	background-color: #fafafa;
+	margin: 0 auto 5px auto;
+	padding: 5px;
+}
+.greys:hover {
+	color: #333;
+	background-color: #ddd;
+}
+
+.blues {
+	color: #f1f1f1;
+	margin: 0 auto 10px auto;
+	padding: 5px 10px;
+    background: #006699;
+    background: -moz-linear-gradient(45deg, #006699 0%, #3399cc 100%);
+    background: -webkit-linear-gradient(45deg, #006699 0%,#3399cc 100%);
+    background: linear-gradient(45deg, #006699 0%,#3399cc 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006699', endColorstr='#3399cc',GradientType=1 );
+}
+
+.greens {
+	color: #f1f1f1;
+	margin: 0 auto 10px auto;
+	padding: 5px 10px;
+	background: #669933;
+    background: -moz-linear-gradient(45deg, #669933 0%, #66cc33 100%);
+    background: -webkit-linear-gradient(45deg, #669933 0%,#66cc33 100%);
+    background: linear-gradient(45deg, #669933 0%,#66cc33 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#669933', endColorstr='#66cc33',GradientType=1 );
+}
+.oranges {
+	color: #f1f1f1;
+	margin: 0 auto 10px auto;
+	padding: 5px 10px;
+	background: #ff7b26;
+    background: -moz-linear-gradient(45deg, #ff7b26 0%, #ffc108 100%);
+    background: -webkit-linear-gradient(45deg, #ff7b26 0%,#ffc108 100%);
+    background: linear-gradient(45deg, #ff7b26 0%,#ffc108 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7b26', endColorstr='#ffc108',GradientType=1 );
+}
+
+
+
+.reds {
+	color: #f1f1f1;
+	margin: 0 auto 10px auto;
+	padding: 5px 10px;
+	background: #f32328;
+    background: -moz-linear-gradient(45deg, #f32328 0%, #fe583c 100%);
+    background: -webkit-linear-gradient(45deg, #f32328 0%,#fe583c 100%);
+    background: linear-gradient(45deg, #f32328 0%,#fe583c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f32328', endColorstr='#fe583c',GradientType=1 );}
+
+.colors {
+	color: #f1f1f1;
+	margin: 0 auto 10px auto;
+	padding: 5px 10px;
+	border: 1px solid #d7d7d7;
+}
+.reds h3::before,.oranges h3::before,.greens h3::before,.blues h3::before,.dark h3::before,.colors h3::before   {background-color:#fff !important;}
+.module h3::before {
+    content: '';
+    width: 60px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.module h3::after {
+    content: "";
+    left: 61px;
+    bottom: 0px;
+    height: 2px;
+    width: 30px;
+    background-color: #bbbbbb;
+    position: absolute;
+}
+.module h3 {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+    font-style: normal;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.dark {
+	background-color: #444;
+	margin: 0 auto 10px auto;
+	color: #ddd;
+	padding: 5px 10px;
+}
+.dark ul, .mcolor ul, .white ul {
+	padding-left: 10px;
+}
+
+.dark a, .colors a { color: #ddd !important;}
