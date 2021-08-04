@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade" version="3.9">
+	<name>plg_content_phocagallery</name>
+	<author>Jan Pavelka (www.phoca.cz)</author>
+	<creationDate>08/02/2021</creationDate>
+	<authorEmail></authorEmail>
+	<authorUrl>https://www.phoca.cz</authorUrl>
+	<copyright>Jan Pavelka</copyright>
+	<license>GNU/GPL</license>
+	<version>4.4.2</version>
+	<description>PLG_CONTENT_PHOCAGALLERY_DESCRIPTION</description>
+	<projectName>PhocaGalleryContentPlugin</projectName>
+
+	<files>
+		<filename plugin="phocagallery">index.html</filename>
+		<filename plugin="phocagallery">manifest.xml</filename>
+		<filename plugin="phocagallery">phocagallery.php</filename>
+	</files>
+
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_phocagallery.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_phocagallery.sys.ini</language>
+	</languages>
+
+	<administration>
+		<languages>
+			<language tag="en-GB">language/en-GB/en-GB.plg_content_phocagallery.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.plg_content_phocagallery.sys.ini</language>
+		</languages>
+	</administration>
+	
+	
+
+	<updateservers>
+		<server type="extension" name="PLG_CONTENT_PHOCAGALLERY" priority="1"><![CDATA[https://raw.githubusercontent.com/PhocaCz/PhocaGalleryContentPlugin/master/manifest.xml]]></server>
+	</updateservers>
+</extension>
