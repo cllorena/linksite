@@ -1,6 +1,6 @@
 <?php
 class JConfig {
-	public $offline = '0';
+	public $offline = '1';
 	public $offline_message = 'Este sitio está cerrado por tareas de mantenimiento.<br />Por favor, inténtelo nuevamente más tarde.';
 	public $display_offline_message = '1';
 	public $offline_image = '';
