@@ -28,6 +28,12 @@ $this->setHtml5(true);
    <jdoc:include type="head" /> <!-- joomla head -->
    <astroid:include type="head-styles" /> <!-- head styles -->
    <astroid:include type="head-scripts" /> <!-- head scripts -->
+
+   
+   <link href="/templates/tpl_jdseattle/css/slider.css" rel="stylesheet" />
+   
+
+
 </head> <!-- document head -->
 
 <body class="<?php echo $document->getBodyClass(); ?>">
