@@ -30,7 +30,8 @@ $this->setHtml5(true);
    <astroid:include type="head-scripts" /> <!-- head scripts -->
 
    
-   <link href="/templates/tpl_jdseattle/css/slider.css" rel="stylesheet" />
+   
+   <link href="/templates/tpl_jdseattle/css/slider_mystyle4.css" rel="stylesheet" />
    
 
 
