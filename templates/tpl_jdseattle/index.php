@@ -31,7 +31,11 @@ $this->setHtml5(true);
 
    
    
-   <link href="/templates/tpl_jdseattle/css/slider_mystyle4.css" rel="stylesheet" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+
+   
    
 
 
