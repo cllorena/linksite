@@ -24,6 +24,6 @@ if ($enable_footer) {
    $find = array('{year}', '{sitename}');
    $replace = array($year, $sitename);
    $footertext = str_replace($find, $replace, $footer_copyright);
-   $html = '<div id="astroid-footer" class="astroid-footer">' . $footertext;
+   $html = '<div id="astroid-footer" class="astroid-footer">' . $footertext . ' <a href="https://www.joomdev.com/products/templates" target="_blank">Joomla Template</a> By <a href="https://www.joomdev.com" target="_blank">JoomDev.</a> Powered With <a href="https://www.astroidframework.com" target="_blank">Astroid Framework</a></div>';
    echo $html;
 }
