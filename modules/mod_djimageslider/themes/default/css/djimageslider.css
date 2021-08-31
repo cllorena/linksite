@@ -165,3 +165,5 @@ ul.djslider-in > li {
 .djslider-loader-default.focused .showOnHover {
 	opacity: 1;
 }
+
+.djslider-default ul.djslider-in { height: 100% }

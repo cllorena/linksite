@@ -25,21 +25,38 @@
  *
  */
 
-// No direct access.
+
 defined('_JEXEC') or die;
 
-$fieldSets = $this->form->getFieldsets('params');
-foreach ($fieldSets as $name => $fieldSet) : ?>
-	
-	<fieldset class="panelform well" >
-		
-			<h3><?php echo JText::_($fieldSet->label); ?></h3>
-			<?php if (isset($fieldSet->description) && trim($fieldSet->description)) :
-				echo '<p class="tip alert alert-info">'.$this->escape(JText::_($fieldSet->description)).'</p>';
-			endif; ?>
-			<?php foreach ($this->form->getFieldset($name) as $field) : ?>
-				<?php echo $field->renderField(); ?>
-			<?php endforeach; ?>
-		
-	</fieldset>
-<?php endforeach; ?>
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\Registry\Registry;
+
+
+$app = Factory::getApplication();
+$input = $app->input;
+
+?>
+
+
+<div class="row">
+    <?php $fieldSets = $this->form->getFieldsets('params');
+    foreach ($fieldSets as $name => $fieldSet) : ?>
+
+        <fieldset class="panelform" >
+
+            <h3><?php echo JText::_($fieldSet->label); ?></h3>
+            <?php if (isset($fieldSet->description) && trim($fieldSet->description)) :
+                echo '<p class="tip alert alert-info">'.$this->escape(JText::_($fieldSet->description)).'</p>';
+            endif; ?>
+            <?php foreach ($this->form->getFieldset($name) as $field) : ?>
+                <?php echo $field->renderField(); ?>
+            <?php endforeach; ?>
+
+        </fieldset>
+    <?php endforeach; ?>
+</div>

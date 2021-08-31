@@ -49,7 +49,12 @@ class DJImageSliderViewItem extends JViewLegacy
 		}
 
 		$this->classes = DJImageSliderHelper::getBSClasses();
-		
+
+        $version = new JVersion;
+        if (version_compare($version->getShortVersion(), '4.0.0', '<')) {
+            $this->setLayout('legacy');
+        }
+
 		$this->addToolbar();
 		parent::display($tpl);
 	}

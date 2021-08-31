@@ -93,7 +93,9 @@
 	
 	<fields name="params">
 		<fieldset name="jbasic"	label="COM_DJIMAGESLIDER_LINKING_OPTIONS"
-			addfieldpath="/administrator/components/com_content/models/fields" >
+			addfieldpath="/administrator/components/com_content/models/fields"
+				  addfieldprefix="Joomla\Component\Content\Administrator\Field"
+		>
 		
 			<field name="link_type" 
 				type="list" 
@@ -123,6 +125,8 @@
 				size="30"
 				showon="link_type:url"
 			/>
+
+
 			<field name="link_article" 
 				type="modal_article"
 				label="COM_DJIMAGESLIDER_ARTICLE" 

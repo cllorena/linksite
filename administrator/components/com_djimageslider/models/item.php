@@ -102,18 +102,19 @@ class DJImageSliderModelItem extends JModelAdmin
 		if(empty($table->publish_down)) {
 			$table->publish_down = JFactory::getDbo()->getNullDate();
 		}
-		
+        if (!$table->ordering) {
+            $db = JFactory::getDbo();
+            $db->setQuery('SELECT MAX(ordering) FROM #__djimageslider WHERE catid = ' . $table->catid);
+            $max = $db->loadResult();
+
+            $table->ordering = $max+1;
+
+        }
 		/*
 		if (empty($table->id)) {
 
 			// Set ordering to the last item if not set
-			if (empty($table->ordering)) {
-				$db = JFactory::getDbo();
-				$db->setQuery('SELECT MAX(ordering) FROM #__djimageslider');
-				$max = $db->loadResult();
 
-				$table->ordering = $max+1;
-			}
 		}
 		*/
 	}

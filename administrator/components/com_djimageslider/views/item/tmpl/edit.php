@@ -25,90 +25,90 @@
  *
  */
 
-// No direct access.
+
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.framework');
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
-if(version_compare(JVERSION, '3.0', '>=')) JHtml::_('formbehavior.chosen', 'select'); /* J!3.0 only */
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\Registry\Registry;
+
+
+$app = Factory::getApplication();
+$input = $app->input;
+
+
+$wa = $this->document->getWebAssetManager();
+$wa->useScript('keepalive')
+    ->useScript('form.validate');
+
+
+// In case of modal
+$isModal = $input->get('layout') === 'modal';
+$layout = $isModal ? 'modal' : 'edit';
+$tmpl = $isModal || $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
+$params = JComponentHelper::getParams( 'com_djimageslider' );
 ?>
 
-<script type="text/javascript">
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'item.cancel' || document.formvalidator.isValid(document.getElementById('item-form'))) {
-			<?php echo $this->form->getField('description')->save(); ?>
-			Joomla.submitform(task, document.getElementById('item-form'));
-		}
-		else {
-			alert("<?php echo $this->escape(JText::_('COM_DJIMAGESLIDER_VALIDATION_FORM_FAILED'));?>");
-		}
-	}
-</script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_djimageslider&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate form-horizontal">
-	<div class="<?php echo $this->classes->row ?>">	
-	<div class="<?php echo $this->classes->col ?>7">
-		<fieldset class="adminform">
-		
-			<h3><?php echo empty($this->item->id) ? JText::_('COM_DJIMAGESLIDER_NEW') : JText::sprintf('COM_DJIMAGESLIDER_EDIT', $this->item->id); ?></h3>				
-			
-			<div class="tab-content">
-				
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('title'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('title'); ?></div>
-				</div>
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('catid'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('catid'); ?></div>
-				</div>
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('image'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('image'); ?></div>
-				</div>
-				<div style="clear:both"></div>
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('description'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('description'); ?></div>
-				</div>
-				
-			</div>
-		</fieldset>
-	</div>
+<form action="<?php echo JRoute::_('index.php?option=com_djimageslider&layout=edit&id=' . (int)$this->item->id); ?>"
+      method="post" name="adminForm" id="item-form" class="form-validate">
+    <?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-	<div class="<?php echo $this->classes->col ?>5">
-		
-		<fieldset class="panelform well" >
-		
-			<h3><?php echo JText::_('COM_DJIMAGESLIDER_PUBLISHING_OPTIONS'); ?></h3>
-			
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('published'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('published'); ?></div>
-				</div>
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('publish_up'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('publish_up'); ?></div>
-				</div>
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('publish_down'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('publish_down'); ?></div>
-				</div>
-				<div class="control-group">
-					<div class="control-label"><?php echo $this->form->getLabel('id'); ?></div>
-					<div class="controls"><?php echo $this->form->getInput('id'); ?></div>
-				</div>
-			
-		</fieldset>
-		
-		<?php echo $this->loadTemplate('params'); ?>
-		
-		<input type="hidden" name="task" value="" />
-		<?php echo JHtml::_('form.token'); ?>
-	</div>
-	</div>
+    <div class="main-card">
+        <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'general')); ?>
+
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', empty($this->item->id) ? JText::_('COM_DJIMAGESLIDER_NEW') : JText::sprintf('COM_DJIMAGESLIDER_EDIT', $this->item->id)); ?>
+        <div class="row">
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('catid'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('catid'); ?></div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('image'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('image'); ?></div>
+            </div>
+            <div style="clear:both"></div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('description'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('description'); ?></div>
+            </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'options', JText::_('COM_DJIMAGESLIDER_PUBLISHING_OPTIONS')); ?>
+        <div class="row">
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('published'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('published'); ?></div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('publish_up'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('publish_up'); ?></div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('publish_down'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('publish_down'); ?></div>
+            </div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('id'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('id'); ?></div>
+            </div>
+        </div>
+
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'params', JText::_('COM_DJIMAGESLIDER_PARAMS')); ?>
+            <?php echo $this->loadTemplate('params'); ?>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+
+        <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+
+
+        <input type="hidden" name="task" value="" />
+        <?php echo JHtml::_('form.token'); ?>
+    </div>
 </form>
-
-<div class="clr"></div>

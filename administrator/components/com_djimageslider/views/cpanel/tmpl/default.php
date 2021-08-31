@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @version $Id$
  * @package DJ-ImageSlider
@@ -25,137 +25,65 @@
  *
  */
 
+defined('_JEXEC') or die('Restricted access');
 
-defined('_JEXEC') or die('Restricted access'); ?>
+JHtml::_('bootstrap.tooltip');
 
-<?php if (version_compare(JVERSION, '3.0', '>=')) { ?>
+?>
 
-<div class="<?php echo $this->classes->row ?>">
+        <div id="j-sidebar-container">
+            <?php if (isset($this->sidebar)) : ?>
+                <?php echo $this->sidebar; ?>
+            <?php endif; ?>
+        </div>
+        <div id="j-main-container">
+            <div class="djc_control_panel clearfix">
+                <div class="cpanel-left">
+                    <div class="cpanel clearfix">
+                        <div class="icon">
+                            <a href="index.php?option=com_categories&extension=com_djimageslider">
+                                <img src="components/com_djimageslider/assets/icon-48-category.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CATEGORIES') ?>" />
+                                <span><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CATEGORIES'); ?></span>
+                            </a>
+                        </div>
 
-<?php if(!empty( $this->sidebar)): ?>
-<div id="j-sidebar-container" class="<?php echo $this->classes->col ?>2">
-	<?php echo $this->sidebar; ?>
-</div>
-<div id="j-main-container" class="<?php echo $this->classes->col ?>10">
-<?php else: ?>
-<div id="j-main-container">
-<?php endif;?>
-	
-	<div class="<?php echo $this->classes->row ?>">
-		<div class="cpanel-left <?php echo $this->classes->col ?>8">
-			<div class="cpanel">
-			
-				<h3><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CPANEL') ?></h3>
-			
-				<div class="icon">
-					<a href="index.php?option=com_categories&extension=com_djimageslider">
-						<img src="components/com_djimageslider/assets/icon-48-category.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CATEGORIES') ?>" />
-						<span><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CATEGORIES'); ?></span>
-					</a>
-				</div>
-					
-				<div class="icon">
-					<a href="index.php?option=com_djimageslider&view=items">
-						<img src="components/com_djimageslider/assets/icon-48-slides.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_SLIDES') ?>" />
-						<span><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_SLIDES'); ?></span>
-					</a>
-				</div>
-				
-				<div class="icon">
-					<a href="index.php?option=com_categories&view=category&layout=edit&extension=com_djimageslider">
-						<img src="components/com_djimageslider/assets/icon-48-category-add.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_NEW_CATEGORY') ?>" />
-						<span><?php echo JText::_('COM_DJIMAGESLIDER_NEW_CATEGORY'); ?></span>
-					</a>
-				</div>
+                        <div class="icon">
+                            <a href="index.php?option=com_djimageslider&view=items">
+                                <img src="components/com_djimageslider/assets/icon-48-slides.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_SLIDES') ?>" />
+                                <span><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_SLIDES'); ?></span>
+                            </a>
+                        </div>
 
-				<div class="icon">
-					<a href="index.php?option=com_djimageslider&view=item&layout=edit">
-						<img src="components/com_djimageslider/assets/icon-48-slide-add.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_NEW_SLIDE') ?>" />
-						<span><?php echo JText::_('COM_DJIMAGESLIDER_NEW_SLIDE'); ?></span>
-					</a>
-				</div>
-				
-				<div class="icon">
-					<a href="https://dj-extensions.com/extensions/dj-image-slider.html" target="_blank">
-						<img src="components/com_djimageslider/assets/icon-48-help.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_DOCUMENTATION') ?>" />
-						<span><?php echo JText::_('COM_DJIMAGESLIDER_DOCUMENTATION'); ?></span>
-					</a>
-				</div>
-			</div>
-		</div>
-			
-		<div class="cpanel-right <?php echo $this->classes->col ?>4">
-			<div class="cpanel well">
-				<div class="<?php echo $this->classes->row ?>">
-					<iframe src="https://dj-extensions.com/index.php?option=com_content&view=article&tmpl=component&id=437" style="border:0; width: 100%; max-width: 450px; height: 370px; margin: -10px 0; padding: 0;"></iframe>
-				</div>
-			</div>
-		</div>
+                        <div class="icon">
+                            <a href="index.php?option=com_categories&view=category&layout=edit&extension=com_djimageslider">
+                                <img src="components/com_djimageslider/assets/icon-48-category-add.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_NEW_CATEGORY') ?>" />
+                                <span><?php echo JText::_('COM_DJIMAGESLIDER_NEW_CATEGORY'); ?></span>
+                            </a>
+                        </div>
 
-	</div>
-</div>
-</div>
+                        <div class="icon">
+                            <a href="index.php?option=com_djimageslider&view=item&layout=edit">
+                                <img src="components/com_djimageslider/assets/icon-48-slide-add.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_NEW_SLIDE') ?>" />
+                                <span><?php echo JText::_('COM_DJIMAGESLIDER_NEW_SLIDE'); ?></span>
+                            </a>
+                        </div>
 
-<?php } else { ?>
+                        <div class="icon">
+                            <a href="https://dj-extensions.com/extensions/dj-image-slider.html" target="_blank">
+                                <img src="components/com_djimageslider/assets/icon-48-help.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_DOCUMENTATION') ?>" />
+                                <span><?php echo JText::_('COM_DJIMAGESLIDER_DOCUMENTATION'); ?></span>
+                            </a>
+                        </div>
 
-<table class="adminform">
-	<tr>
-		<td width="55%" valign="top">
-			<div class="cpanel-left">
-				<div id="cpanel">
-					<div style="float:left;">
-						<div class="icon">
-							<a href="index.php?option=com_categories&extension=com_djimageslider">
-								<img src="components/com_djimageslider/assets/icon-48-category.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CATEGORIES') ?>" />
-								<span><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_CATEGORIES'); ?></span>
-							</a>
-						</div>
-					</div>
-					<div style="float:left;">
-						<div class="icon">
-							<a href="index.php?option=com_djimageslider&view=items">
-								<img src="components/com_djimageslider/assets/icon-48-slides.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_SLIDES') ?>" />
-								<span><?php echo JText::_('COM_DJIMAGESLIDER_SUBMENU_SLIDES'); ?></span>
-							</a>
-						</div>
-					</div>
-					<div style="float:left;">
-						<div class="icon">
-							<a href="index.php?option=com_categories&view=category&layout=edit&extension=com_djimageslider">
-								<img src="components/com_djimageslider/assets/icon-48-category-add.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_NEW_CATEGORY') ?>" />
-								<span><?php echo JText::_('COM_DJIMAGESLIDER_NEW_CATEGORY'); ?></span>
-							</a>
-						</div>
-					</div>
-					<div style="float:left;">
-						<div class="icon">
-							<a href="index.php?option=com_djimageslider&view=item&layout=edit">
-								<img src="components/com_djimageslider/assets/icon-48-slide-add.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_NEW_SLIDE') ?>" />
-								<span><?php echo JText::_('COM_DJIMAGESLIDER_NEW_SLIDE'); ?></span>
-							</a>
-						</div>
-					</div>
-					<div style="float:left;">
-						<div class="icon">
-							<a href="https://dj-extensions.com/extensions/dj-image-slider.html" target="_blank">
-								<img src="components/com_djimageslider/assets/icon-48-help.png" alt="<?php echo JText::_('COM_DJIMAGESLIDER_DOCUMENTATION') ?>" />
-								<span><?php echo JText::_('COM_DJIMAGESLIDER_DOCUMENTATION'); ?></span>
-							</a>
-						</div>
-					</div>
-			
-				</div>
-			</div>
-			<div class="cpanel-right">
-				<div class="cpanel">					
-						<iframe src="https://dj-extensions.com/index.php?option=com_content&view=article&tmpl=component&id=437" style="border:0; width: 100%; max-width: 450px; height: 370px; margin: -10px 0; padding: 0;"></iframe>
-					<div style="clear: both;" ></div>
-				</div>
-			</div>
-		</td>
-	</tr>
-</table>
-<?php } ?>
+                    </div>
+                </div>
+                <div class="cpanel-right">
+                    <div class="cpanel">
+                        <iframe src="https://dj-extensions.com/index.php?option=com_content&view=article&tmpl=component&id=437" style="border:0; width: 100%; max-width: 450px; height: 370px; margin: -10px 0; padding: 0;"></iframe>
+                        <div style="clear: both;" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="clr" style="clear: both"></div>
 <?php echo DJIMAGESLIDERFOOTER; ?>

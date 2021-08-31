@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension version="3.9" client="administrator" type="language" method="upgrade">
+<extension version="3.10" client="administrator" type="language" method="upgrade">
 	<name>Spanish (español)</name>
 	<tag>es-ES</tag>
-	<version>3.9.28.1</version>
-	<creationDate>20/07/2021</creationDate>
+	<version>3.10.1.1</version>
+	<creationDate>24/08/2021</creationDate>
 	<author>Spanish Translation Team [es-ES]</author>
 	<authorEmail>es.es.translation.team@gmail.com</authorEmail>
 	<authorUrl></authorUrl>
@@ -244,6 +244,8 @@
 		<filename>es-ES.plg_privacy_message.sys.ini</filename>
 		<filename>es-ES.plg_privacy_user.ini</filename>
 		<filename>es-ES.plg_privacy_user.sys.ini</filename>
+		<filename>es-ES.plg_quickicon_eos310.ini</filename>
+		<filename>es-ES.plg_quickicon_eos310.sys.ini</filename>
 		<filename>es-ES.plg_quickicon_extensionupdate.ini</filename>
 		<filename>es-ES.plg_quickicon_extensionupdate.sys.ini</filename>
 		<filename>es-ES.plg_quickicon_joomlaupdate.ini</filename>

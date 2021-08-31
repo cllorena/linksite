@@ -35,12 +35,16 @@ class DJImageSliderViewItems extends JViewLegacy
 	protected $items;
 	protected $pagination;
 	protected $state;
+    public $filterForm;
+    public $activeFilters;
 	
 	public function display($tpl = null)
 	{
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
+        $this->filterForm    = $this->get('FilterForm');
+        $this->activeFilters = $this->get('ActiveFilters');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -61,7 +65,17 @@ class DJImageSliderViewItems extends JViewLegacy
 		}
 		
 		$this->classes = DJImageSliderHelper::getBSClasses();
-		
+
+        $version = new JVersion;
+        if (version_compare($version->getShortVersion(), '4.0.0', '<')) {
+            $this->setLayout('legacy');
+            if (class_exists('JHtmlSidebar')){
+                $this->sidebar = JHtmlSidebar::render();
+            }
+        }elseif (version_compare($version->getShortVersion(), '4.0.0', '>=') && (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState'))) {
+            $this->setLayout('emptystate');
+        }
+
 		$this->addToolbar();		
 		parent::display($tpl);
 	}

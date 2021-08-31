@@ -47,14 +47,15 @@ class DJImageSliderModelItems extends JModelList
 				'access', 'a.access', 'access_level',
 				'created', 'a.created',
 				'created_by', 'a.created_by',
-				'language', 'a.language'
+				'language', 'a.language',
+                'category', 'published'
 			);
 		}
 
 		parent::__construct($config);
 	}
 	
-	protected function populateState($ordering = null, $direction = null)
+	protected function populateState($ordering = 'a.ordering', $direction = 'asc')
 	{
 		// Initialise variables.
 		$app = JFactory::getApplication();
@@ -69,7 +70,7 @@ class DJImageSliderModelItems extends JModelList
 		$this->setState('filter.category', $category);
 		
 		// List state information.
-		parent::populateState('a.ordering', 'asc');
+		parent::populateState($ordering, $direction);
 	}
 
 	protected function getStoreId($id = '')

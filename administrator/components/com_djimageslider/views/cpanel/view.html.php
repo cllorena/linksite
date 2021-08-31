@@ -39,12 +39,18 @@ class DJImageSliderViewCpanel extends JViewLegacy
 		
 		JToolBarHelper::preferences('com_djimageslider', 550, 875);
 		
-		if (class_exists('JHtmlSidebar')){
-			$this->sidebar = JHtmlSidebar::render();
-		}
+
 		
 		$this->classes = DJImageSliderHelper::getBSClasses();
-		
+
+        $version = new JVersion;
+        if (version_compare($version->getShortVersion(), '4.0.0', '<')) {
+            $this->setLayout('legacy');
+            if (class_exists('JHtmlSidebar')){
+                $this->sidebar = JHtmlSidebar::render();
+            }
+        }
+
 		parent::display($tpl);
 	}
 }

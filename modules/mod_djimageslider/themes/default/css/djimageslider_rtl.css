@@ -8,3 +8,5 @@
 .slide-desc-text-default {
 	text-align: right;
 }
+
+.djslider-default ul.djslider-in { height: 100% }

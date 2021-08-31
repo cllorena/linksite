@@ -163,7 +163,7 @@ class modDJImageSliderHelper
 			case 'article':
 				if ($artid = $slide->params->get('id',$slide->params->get('link_article',0))) {
 					jimport('joomla.application.component.model');
-					require_once(JPATH_BASE.DS.'components'.DS.'com_content'.DS.'helpers'.DS.'route.php');
+                    JLoader::register('ContentHelperRoute', JPATH_SITE . '/components/com_content/helpers/route.php');
 					JModelLegacy::addIncludePath(JPATH_BASE.DS.'components'.DS.'com_content'.DS.'models');
 					$model = JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request'=>true));
 					$model->setState('params', $app->getParams());
@@ -456,5 +456,19 @@ class modDJImageSliderHelper
 		
 		return $style;
 	}
+
+    public static function getGoogleFontSlug($fonts) {
+        $slugs = array();
+        $fonts = array_unique($fonts);
+
+
+
+        foreach ($fonts as $font) {
+            if($font != '')
+                $slugs[] = str_replace(" ", "+" , $font);
+        }
+
+        return implode('|', $slugs);
+    }
 
 }
