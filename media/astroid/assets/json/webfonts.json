@@ -19003,6 +19003,23 @@
      }
     },
     {
+      "kind": "webfonts#webfont",
+      "family": "Exo 2",
+      "category": "sans-serif",
+      "variants": [
+         "normal"
+      ],
+      "subsets": [
+         "cyrillic"
+      ],
+      "version": "v10",
+      "lastModified": "2019-04-29",
+      "files": {
+       "400": "https://fonts.gstatic.com/s/exo2/v10/7cH1v4okm5zmbvwkAx_sfcEuiD8jvvKsNtC_nps.woff2" 
+      }
+
+    },
+    {
      "kind": "webfonts#webfont",
      "family": "Zilla Slab Highlight",
      "category": "display",
