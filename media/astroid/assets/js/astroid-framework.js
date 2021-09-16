@@ -43,14 +43,14 @@ astroidFramework.directive("astroidmediagallery", ["$http", function ($http) {
             ngModel.$setViewValue("");
             try {
                Admin.checkForm();
-            } catch (e) {}
+            } catch (e) { }
          };
          $scope.selectImage = function (_id, _value) {
             ngModel.$setViewValue(_value);
             $scope.selectMedia = false;
             try {
                Admin.checkForm();
-            } catch (e) {}
+            } catch (e) { }
          };
          $scope.getLibrary = function (folder, tab) {
             $("a#" + tab).tab("show");
@@ -59,7 +59,7 @@ astroidFramework.directive("astroidmediagallery", ["$http", function ($http) {
             $scope.bradcrumb = [];
             $.ajax({
                method: "GET",
-               url: BASE_URL + "index.php?option=com_ajax&astroid=media&action=library&folder=" + folder + "&asset=com_templates&author=",
+               url: BASE_URL + "index.php?option=com_ajax&astroid=media&action=library&folder=" + folder + "&asset=com_templates&ts=" + Date.now() + "&author=",
                success: function (response) {
                   if (response.status == "error") {
                      $.notify(response.message, {
@@ -321,7 +321,7 @@ astroidFramework.directive("astroidsocialprofiles", ["$http", function ($http) {
             try {
                $scope.setProfiles();
                Admin.checkForm();
-            } catch (e) {}
+            } catch (e) { }
          };
          $scope.setProfiles = function () {
             var _profiles = [];
@@ -340,7 +340,7 @@ astroidFramework.directive("astroidsocialprofiles", ["$http", function ($http) {
                icons: [],
                id: "custom",
                link: "#",
-               title: "Custom social profile"
+               title: "My Social Link"
             };
             var _profiles = $scope.profiles;
             _profiles.push(angular.copy(_profile));
@@ -412,13 +412,13 @@ astroidFramework.directive("dropzone", function () {
                }
                try {
                   Admin.checkForm();
-               } catch (e) {}
+               } catch (e) { }
             },
             complete: function (file) {
                this.removeAllFiles(true);
                try {
                   Admin.checkForm();
-               } catch (e) {}
+               } catch (e) { }
             },
             sending: function (file, xhr, formData) {
                if (_dir) {
@@ -608,23 +608,23 @@ astroidFramework.directive("astroidSwitch", function () {
             }
             try {
                Admin.checkForm();
-            } catch (e) {}
+            } catch (e) { }
          };
          var updateElementFromModel = function () {
             if (ngModel.$viewValue == 1) {
-               $($element).siblings(".custom-toggle").children(".custom-control-input").prop("checked", true);
+               $($element).siblings(".ast-custom-toggle").children(".ast-custom--control-input").prop("checked", true);
                $element.val(1)
             } else {
-               $($element).siblings(".custom-toggle").children(".custom-control-input").prop("checked", false);
+               $($element).siblings(".ast-custom-toggle").children(".ast-custom-control-input").prop("checked", false);
                $element.val(0)
             }
          };
          var initElementFromModel = function () {
             if ($element.val() == 1) {
-               $($element).siblings(".custom-toggle").children(".custom-control-input").prop("checked", true);
+               $($element).siblings(".ast-custom-toggle").children(".ast-custom-control-input").prop("checked", true);
                ngModel.$setViewValue(1)
             } else {
-               $($element).siblings(".custom-toggle").children(".custom-control-input").prop("checked", false);
+               $($element).siblings(".ast-custom-toggle").children(".ast-custom-control-input").prop("checked", false);
                ngModel.$setViewValue(0)
             }
          };
@@ -633,8 +633,8 @@ astroidFramework.directive("astroidSwitch", function () {
          $element.removeAttr("id")
          $element.wrap("<div/>");
          var _container = $element.parent("div");
-         $(_container).append('<div class="custom-control custom-toggle"><input type="checkbox" id="' + _id + '" class="custom-control-input" /><label class="custom-control-label" for="' + _id + '"></label></div>');
-         $(_container).find(".custom-control-input").bind("change", function (e) {
+         $(_container).append('<div class="ast-custom-control ast-custom-toggle"><input type="checkbox" id="' + _id + '" class="ast-custom-control-input" /><label class="ast-custom-control-label" for="' + _id + '"></label></div>');
+         $(_container).find(".ast-custom-control-input").bind("change", function (e) {
             var _checked = $(this).is(":checked");
             updateModelFromElement(_checked)
          });

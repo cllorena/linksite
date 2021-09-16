@@ -105,11 +105,11 @@ if ($item->type == 'url') {
       <?php } ?>
       <?php if (!$options->icononly) { ?>
          <?php if (!empty($item->menu_image)) { ?>
-            <img src="<?php echo JURI::root() . $item->menu_image; ?>" />
+            <img src="<?php echo JURI::root() . $item->menu_image; ?>" alt="<?php echo $item->title; ?>" <?php echo !empty($item->menu_image_css) ? "class='$item->menu_image_css'" : "";?> />
          <?php } ?>
-         <?php if (!empty($item->menu_image) && $item->params->get('menu_text', 1)) { ?>
+         <?php if (!empty($item->menu_image) && $item->getParams()->get('menu_text', 1)) { ?>
             <?php echo $item->title; ?>
-         <?php } else if (!empty($item->menu_image) && !$item->params->get('menu_text', 1)) { ?>
+         <?php } else if (!empty($item->menu_image) && !$item->getParams()->get('menu_text', 1)) { ?>
 
          <?php } else { ?>
             <?php echo $item->title; ?>
@@ -132,7 +132,7 @@ if ($item->type == 'url') {
          <?php if ($params->get('dropdown_arrow', 0)) {  ?>
             <i class="fas fa-chevron-down nav-item-caret"></i>
          <?php } ?>
-      <?php } elseif ((!$is_mobile_menu && $item->parent && !($item->type == "heading" || $item->type == "separator")) && $item->level != $header_endLevel && !$slidemenu) { ?>
+      <?php } elseif ((!$is_mobile_menu && $item->parent && !($item->type == "heading")) && $item->level != $header_endLevel && !$slidemenu) { ?>
          <i class="fas fa-chevron-right nav-item-caret"></i>
       <?php } ?>
    </span>

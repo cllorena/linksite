@@ -21,22 +21,20 @@ if (!$header || !$enable_offcanvas) {
    return;
 }
 
-$document->addScript('vendor/astroid/js/offcanvas.js', 'body');
-
 $module_position = 'offcanvas';
+$document->addScript('vendor/astroid/js/offcanvas.js', 'body');
+$hasMenu = $document->hasModule($module_position, 'mod_menu');
+if ($hasMenu) {
+   $document->addScript('vendor/astroid/js/mobilemenu.js', 'body');
+}
+
 $togglevisibility = $params->get('offcanvas_togglevisibility', 'd-block');
 $effect = $params->get('offcanvas_animation', 'st-effect-1');
 $panelwidth = $params->get('offcanvas_panelwidth', '320px');
 $openfrom = $params->get('offcanvas_openfrom', 'left');
 ?>
 <div class="astroid-offcanvas d-none d-init" id="astroid-offcanvas">
-   <div class="burger-menu-button active">
-      <button type="button" class="button close-offcanvas offcanvas-close-btn">
-         <span class="box">
-            <span class="inner"></span>
-         </span>
-      </button>
-   </div>
+   <?php echo $document->include('offcanvas.close'); ?>
    <div class="astroid-offcanvas-inner">
       <?php $content = $document->position($module_position, 'astroidxhtml');
 

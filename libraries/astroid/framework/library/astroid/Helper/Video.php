@@ -17,10 +17,13 @@ class Video
     {
         $parts = parse_url($url);
         $id = '';
+        $query = null;
         switch ($type) {
             case 'youtube':
-                parse_str($parts['query'], $query);
-                $id = (isset($query['v']) ? $query['v'] : '');
+                if (isset($parts['query'])) {
+                    parse_str($parts['query'], $query);
+                    $id = (isset($query['v']) ? $query['v'] : '');
+                }
                 break;
             case 'vimeo':
                 $id = (isset($parts['path']) ? str_replace('/', '', $parts['path']) : '');
@@ -35,7 +38,7 @@ class Video
         if ($meta) {
             $content .= '<meta itemprop="thumbnailURL" content="https://i.ytimg.com/vi/' . $id . '/maxresdefault.jpg" /><meta itemprop="embedURL" content="https://youtube.googleapis.com/v/' . $id . '" />';
         }
-        $content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $id . '?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        $content = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $id . '?rel=0&amp;showinfo=0" style="border:0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
         return $content;
     }
 
@@ -45,7 +48,7 @@ class Video
         if ($meta) {
             $content .= '<meta itemprop="thumbnailURL" content="http://i.vimeocdn.com/video/' . $id . '.jpg" /><meta itemprop="embedURL" content="https://vimeo.com/' . $id . '" />';
         }
-        $content = '<iframe src="https://player.vimeo.com/video/' . $id . '" width="640" height="269" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        $content = '<iframe src="https://player.vimeo.com/video/' . $id . '" width="640" height="269" style="border:0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         return $content;
     }
 
@@ -60,5 +63,23 @@ class Video
             return;
         }
         return self::$method($id, $meta);
+    }
+
+    public static function getVideoThumbnailByTypeUrl($type = '', $url = '')
+    {
+        $thumbnail = '';
+        $id = self::_id($type, $url);
+        if (empty($id)) return $thumbnail;
+
+        switch ($type) {
+            case 'youtube':
+                $thumbnail = 'https://i.ytimg.com/vi/' . $id . '/maxresdefault.jpg';
+                break;
+            case 'vimeo':
+                $thumbnail = 'https://i.vimeocdn.com/video/' . $id . '_640.webp';
+                break;
+        }
+
+        return $thumbnail;
     }
 }

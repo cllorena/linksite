@@ -99,7 +99,7 @@ class Utility
         $layout_background_image = $params->get('layout_background_image', '');
 
         if (!empty($layout_background_image)) {
-            $style = new Style('.astroid-layout.astroid-layout-boxed');
+            $style = new Style('body');
             $style->addCss('background-image', 'url(' . \JURI::root() . Helper\Media::getPath() . '/' . $layout_background_image . ')');
             $style->addCss('background-repeat', $params->get('layout_background_repeat', 'inherit'));
             $style->addCss('background-size', $params->get('layout_background_size', 'inherit'));
@@ -117,10 +117,14 @@ class Utility
         if ($enable_smooth_scroll == '1') {
             $speed = $params->get('smooth_scroll_speed', '');
             $document->addScript('vendor/astroid/js/smooth-scroll.polyfills.min.js', 'body');
+            $header = $params->get('header', TRUE);
+            $mode = $params->get('header_mode', 'horizontal');
+            $sidebar = ($header && $mode == 'sidebar');
+
             $script = '
 			var scroll = new SmoothScroll(\'a[href*="#"]\', {
-            speed: ' . $speed . ',
-            header: ".astroid-header"
+            speed: ' . $speed . '
+            ' . ($sidebar ? '' : ', header: ".astroid-header"') . '
 			});';
             $document->addScriptDeclaration($script, 'body');
         }
@@ -223,7 +227,7 @@ class Utility
 
         // Dropdown Menu
         $dropdown = Style::addCssBySelector('.megamenu-container', 'background-color', $params->get('dropdown_bg_color', ''));
-        
+
         $submenuDropdown = Style::addCssBySelector('.megamenu-container .nav-submenu .nav-submenu', 'background-color', $params->get('dropdown_bg_color', ''));
 
         Style::addCssBySelector('.has-megamenu.open .arrow', 'border-bottom-color', $params->get('dropdown_bg_color', ''));
@@ -321,13 +325,46 @@ class Utility
 
         $document->addCustomTag($params->get('trackingcode', ''));
         $document->addStyleDeclaration($params->get('customcss', ''));
-        $document->addStyleSheet(explode("\n", $params->get('customcssfiles', '')));
+
+        $customcssfiles = explode("\n", $params->get('customcssfiles'));
+
+        foreach ($customcssfiles as $customcssfile) {
+            @list($file, $shift) = \explode('|', $customcssfile);
+            $shift = $shift ? $shift : 0;
+            $document->addStyleSheet($file, ['rel' => 'stylesheet', 'type' => 'text/css'], $shift);
+        }
 
         $document->addScriptdeclaration($params->get('customjs', ''));
         $document->addScript(explode("\n", $params->get('customjsfiles', '')));
 
         $document->addCustomTag($params->get('beforehead', ''));
         $document->addCustomTag($params->get('beforebody', ''), 'body');
+
+        // Page level custom code
+        $app = \JFactory::getApplication();
+        $itemid = $app->input->get('Itemid', '', 'INT');
+        if (empty($itemid)) return false;
+
+        $menu = $app->getMenu();
+        $item = $menu->getItem($itemid);
+        $params = $item->getParams();
+
+        $document->addCustomTag($params->get('astroid_trackingcode', ''));
+        $document->addStyleDeclaration($params->get('astroid_customcss', ''));
+
+        $customcssfiles = explode("\n", $params->get('astroid_customcssfiles'));
+
+        foreach ($customcssfiles as $customcssfile) {
+            @list($file, $shift) = \explode('|', $customcssfile);
+            $shift = $shift ? $shift : 0;
+            $document->addStyleSheet($file, ['rel' => 'stylesheet', 'type' => 'text/css'], $shift);
+        }
+
+        $document->addScriptdeclaration($params->get('astroid_customjs', ''));
+        $document->addScript(explode("\n", $params->get('astroid_customjsfiles', '')));
+
+        $document->addCustomTag($params->get('astroid_beforehead', ''));
+        $document->addCustomTag($params->get('astroid_beforebody', ''), 'body');
     }
 
     public static function error()

@@ -29,6 +29,8 @@ class Document
     protected $minify_js = false;
     protected $minify_html = false;
     protected static $_fontawesome = false;
+    protected static $_layout_paths = [];
+    protected $type = null;
 
     public function __construct()
     {
@@ -36,20 +38,43 @@ class Document
         $this->minify_css = $params->get('minify_css', false);
         $this->minify_js = $params->get('minify_js', false);
         $this->minify_html = $params->get('minify_html', false);
+
+        $doc = \JFactory::getDocument();
+        $this->type = $doc->getType();
+
+        $template = Framework::getTemplate();
+        $this->addLayoutPath(JPATH_SITE . '/templates/' . $template->template . '/html/frontend/');
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function addLayoutPath($path)
+    {
+        self::$_layout_paths[] = $path;
     }
 
     public function include($section, $data = [], $return = false)
     {
-        $template = Framework::getTemplate();
         $path = null;
         $name = str_replace('.', '/', $section);
         if (Framework::isAdmin() && file_exists(JPATH_LIBRARIES . '/astroid/framework/layouts/' . $name . '.php')) {
             $path = JPATH_LIBRARIES . '/astroid/framework/layouts';
-        } else if (file_exists(JPATH_SITE . '/templates/' . $template->template . '/html/frontend/' . $name . '.php')) {
-            $path = JPATH_SITE . '/templates/' . $template->template . '/html/frontend';
-        } else if (file_exists(JPATH_LIBRARIES . '/astroid/framework/frontend/' . $name . '.php')) {
-            $path = JPATH_LIBRARIES . '/astroid/framework/frontend';
         } else {
+            $layout_paths = self::$_layout_paths;
+            $layout_paths[] = JPATH_LIBRARIES . '/astroid/framework/frontend/';
+            foreach ($layout_paths as $layout_path) {
+                $layout_path = substr($layout_path, -1) == '/' ? $layout_path : $layout_path . '/';
+                if (file_exists($layout_path . $name . '.php')) {
+                    $path = $layout_path;
+                    break;
+                }
+            }
+        }
+
+        if ($path === null) {
             return '';
         }
 
@@ -87,17 +112,15 @@ class Document
         $app = \JFactory::getApplication();
         $body = $app->getBody();
 
-        if ($this->minify_css) {
-            $body = $this->minifyCSS($body);
-        }
+        // Stop Minification for RSSFeeds and other doc types.
+        if ($this->type == 'feed') $this->minify_css = $this->minify_js = $this->minify_html = false;
 
-        if ($this->minify_js && !$this->isFrontendEditing()) {
-            $body = $this->minifyJS($body);
-        }
+        if ($this->minify_css) $body = $this->minifyCSS($body);
 
-        if ($this->minify_html) {
-            $body = $this->minifyHTML($body);
-        }
+        if ($this->minify_js && !$this->isFrontendEditing()) $body = $this->minifyJS($body);
+
+        if ($this->minify_html) $body = $this->minifyHTML($body);
+
         $app->setBody($body);
     }
 
@@ -127,9 +150,15 @@ class Document
 
     public function _cssPath($file)
     {
+        $site_path = parse_url(\JURI::root(), PHP_URL_PATH);
+
+        if (Helper::startsWith($file, $site_path)) {
+            $file = preg_replace('/' . preg_quote($site_path, '/') . '/', '/', $file, 1);
+        }
+
         $file_info = parse_url($file);
         if (isset($file_info['host'])) {
-            if ($file_info['host'] == parse_url(\JURI::root())['host']) {
+            if ($file_info['host'] == parse_url(\JURI::root(), PHP_URL_HOST)) {
                 $file = strtok($file, '?');
                 $file = str_replace(\JURI::root(), '', $file);
                 return $file;
@@ -147,9 +176,15 @@ class Document
 
     public function _jsPath($file)
     {
+        $site_path = parse_url(\JURI::root(), PHP_URL_PATH);
+
+        if (Helper::startsWith($file, $site_path)) {
+            $file = preg_replace('/' . preg_quote($site_path, '/') . '/', '/', $file, 1);
+        }
+
         $file_info = parse_url($file);
         if (isset($file_info['host'])) {
-            if ($file_info['host'] == parse_url(\JURI::root())['host']) {
+            if ($file_info['host'] == parse_url(\JURI::root(), PHP_URL_HOST)) {
                 $file = strtok($file, '?');
                 $file = str_replace(\JURI::root(), '', $file);
                 return $file;
@@ -181,8 +216,12 @@ class Document
         $stylesheets = [];
         $stylesheetsUrls = [];
         $html = preg_replace_callback('/(<link\s[^>]*href=")([^"]*)("[^>][^>]*rel=")([^"]*)("[^>]*\/>)/siU', function ($matches) use (&$stylesheets, &$stylesheetsUrls) {
+
             if (isset($matches[4]) && $matches[4] === 'stylesheet') {
-                $stylesheets[] = $this->_cssPath($matches[2]);
+                $url = $this->_cssPath($matches[2]);
+                $ext = pathinfo($url, PATHINFO_EXTENSION);
+                if ($ext !== 'css' && !Helper::startsWith($url, '@import')) return $matches[0];
+                $stylesheets[] = $url;
                 $stylesheetsUrls[] = $this->beutifyURL($matches[2]);
                 return '';
             }
@@ -209,7 +248,11 @@ class Document
             Helper::putContents($cssFile, '');
             $minifier = new Minify\CSS($cssFile);
             foreach ($stylesheets as $stylesheet) {
-                $minifier->add($stylesheet);
+                if (file_exists(JPATH_SITE . '/' . $stylesheet)) {
+                    $minifier->add(JPATH_SITE . '/' . $stylesheet);
+                } else {
+                    $minifier->add($stylesheet);
+                }
             }
             $minifier->minify($cssFile);
         } else {
@@ -233,6 +276,9 @@ class Document
             // print_r($matches);
             $script = [];
             if (isset($matches[5]) && $matches[5] == '</script>' && !empty($matches[2])) {
+                if (strpos($matches[0], 'type="module"') > 0) {
+                    return $matches[0];
+                }
                 $script = ['content' => $this->beutifyURL($matches[2]), 'type' => 'url'];
                 $javascriptFiles[] = $this->beutifyURL($matches[2]);
             } else if (isset($matches[8]) && $matches[8] == '</script>' && !empty($matches[7])) {
@@ -299,7 +345,7 @@ class Document
             Framework::getReporter('Logs')->add('Getting Minified JS <code>' . (str_replace(JPATH_SITE . '/', '', $jsFile)) . '</code>.');
         }
 
-        $html = Helper::str_lreplace('</body>', '<script src="' . \JURI::root() . 'cache/astroid/js/' . $version . '.js?' . Helper::joomlaMediaVersion() . '" type="text/javascript"></script></body>', $html);
+        $html = Helper::str_lreplace('</body>', '<script src="' . \JURI::root() . 'cache/astroid/js/' . $version . '.js?' . Helper::joomlaMediaVersion() . '"></script></body>', $html);
         Framework::getDebugger()->log('Minifying JS');
         return $html;
     }
@@ -468,6 +514,11 @@ class Document
             $return .= $afterContent;
         }
         return $return;
+    }
+
+    public function hasModule($position, $module)
+    {
+        return in_array($module, array_column(\JModuleHelper::getModules($position), 'module'));
     }
 
     public function loadModule($content)
@@ -750,7 +801,7 @@ class Document
         $this->_styles[$device][] = trim($content);
     }
 
-    public function addStyleSheet($url, $attribs = ['rel' => 'stylesheet', 'type' => 'text/css'])
+    public function addStyleSheet($url, $attribs = ['rel' => 'stylesheet', 'type' => 'text/css'], $shifted = 0)
     {
         if (!is_array($url)) {
             $url = [$url];
@@ -763,7 +814,7 @@ class Document
         }
         foreach ($url as $u) {
             if (!empty(trim($u))) {
-                $stylesheet = ['url' => $u, 'attribs' => $attribs];
+                $stylesheet = ['url' => $u, 'attribs' => $attribs, 'shifted' => $shifted];
                 $this->_stylesheets[md5($u)] = $stylesheet;
             }
         }
@@ -774,7 +825,10 @@ class Document
         if (empty($content)) {
             return;
         }
-        $this->_customtags[$position][] = trim($content);
+        $content = trim($content);
+        if (!in_array($content, $this->_customtags[$position])) {
+            $this->_customtags[$position][] = trim($content);
+        }
     }
 
     public function loadFontAwesome()
@@ -785,15 +839,31 @@ class Document
         Helper\Font::loadFontAwesome();
     }
 
+    public function moveFile(&$array, $a, $b)
+    {
+        $out = array_splice($array, $a, 1);
+        array_splice($array, $b, 0, $out);
+    }
+
     public function getStylesheets()
     {
+        $keys = array_keys($this->_stylesheets);
+
+        foreach ($keys as $index => $key) {
+            if ($this->_stylesheets[$key]['shifted']) {
+                $newindex = $index + (int) $this->_stylesheets[$key]['shifted'];
+                $this->moveFile($keys, $index, $newindex);
+            }
+        }
+
         $content = '';
-        foreach ($this->_stylesheets as $stylesheet) {
+        foreach ($keys as $key) {
+            $stylesheet = $this->_stylesheets[$key];
             $content .= '<link href="' . $this->_systemUrl($stylesheet['url']) . '"';
             foreach ($stylesheet['attribs'] as $prop => $value) {
                 $content .= ' ' . $prop . '="' . $value . '"';
             }
-            $content .= ' />';
+            $content .= ' />' . "\n";
         }
         return $content;
     }
@@ -811,22 +881,26 @@ class Document
 
         $scss = new Compiler();
         $scss->setImportPaths(__DIR__ . '/' . $templatePath . '/scss');
+        $bootstrapPath = $mediaPath . '/vendor/bootstrap/scss';
+        if (file_exists(__DIR__ . '/' . $templateScssPath . '/vendor/bootstrap')) {
+            $bootstrapPath = 'vendor/bootstrap';
+        }
         $content = '';
         $functionsIncluded = false;
         if (file_exists(__DIR__ . '/' . $templateScssPath . '/custom/variable_overrides.scss')) {
             $functionsIncluded = true;
-            $content .= '@import "' . $mediaPath . '/vendor/bootstrap/scss/functions";';
+            $content .= '@import "' . $bootstrapPath . '/functions";';
             $content .= '@import "custom/variable_overrides";';
         }
 
         if (file_exists(__DIR__ . '/' . $templateScssPath . '/variable_overrides.scss')) {
             if (!$functionsIncluded) {
-                $content .= '@import "' . $mediaPath . '/vendor/bootstrap/scss/functions";';
+                $content .= '@import "' . $bootstrapPath . '/functions";';
             }
             $content .= '@import "variable_overrides";';
         }
 
-        $content .= '@import "' . $mediaPath . '/vendor/bootstrap/scss/bootstrap";';
+        $content .= '@import "' . $bootstrapPath . '/bootstrap";';
 
         $content .= '@import "' . $mediaPath . '/vendor/astroid/scss/astroid";';
 
@@ -914,8 +988,6 @@ class Document
                 $class[] = $menu_params->get('pageclass_sfx');
             }
             if ($menu->alias) {
-                // menu alias without -alias appended will be removed in the next version.
-                $class[] = $menu->alias;
                 $class[] = $menu->alias . '-alias';
             }
         }
@@ -995,41 +1067,52 @@ class Document
         // Scss
         if (Framework::isSite()) {
             $template = Framework::getTemplate();
-            $scssVersion = md5(serialize($template->getThemeVariables()) . $template->id . self::scssHash());
-            $scssFile = ASTROID_CACHE . '/compiled/' . $template->id . '-' . $scssVersion . '.css';
 
-            if (!file_exists($scssFile)) {
+            // scss compile version
+            $scssVersion = md5(serialize($template->getThemeVariables())  . self::scssHash());
+
+            // css file to be generated in template folder
+            $cssFile = ASTROID_TEMPLATE_PATH . '/css/compiled-' .  $scssVersion . '.css';
+
+            // $scssFile = ASTROID_CACHE . '/compiled/' . $template->id . '-' . $scssVersion . '.css';
+
+            if (!file_exists($cssFile)) {
+                // rendering scss
                 Framework::getReporter('Logs')->add('Rendering Scss');
+                // clearing previous versions
                 Helper::clearCache($template->template, ['compiled']);
-                $this->renderScss($scssFile);
+                // adding compiled scss in css file
+                $this->renderScss($cssFile);
             } else {
-                Framework::getReporter('Logs')->add('Getting SCSS Compiled CSS <code>' . str_replace(JPATH_SITE . '/', '', $scssFile) . '</code> from cache.');
+                // logging compiled scss
+                Framework::getReporter('Logs')->add('Getting SCSS Compiled CSS <code>' . str_replace(JPATH_SITE . '/', '', $cssFile) . '</code> from cache.');
             }
+            // adding compiled scss
+            $this->addStyleSheet('css/compiled-' . $scssVersion . '.css');
         }
 
         if (Helper::getPluginParams()->get('astroid_debug', 0)) {
             $this->addStyleSheet('vendor/astroid/css/debug.css');
         }
-        // css
+        // css on page
         $css = $this->renderCss();
-
         if (Framework::isSite()) {
-            $cssVersion = md5(md5_file($scssFile) . md5($css) . $template->id);
-            $cssFile = ASTROID_TEMPLATE_PATH . '/css/compiled-' . $cssVersion . '.css';
-            if (!file_exists($cssFile)) {
-                Helper::clearCache($template->template, ['compiled']);
-                Helper::putContents($cssFile, file_get_contents($scssFile) . $css);
-            } else {
-                Framework::getReporter('Logs')->add('Getting Compiled CSS <code>' . str_replace(JPATH_SITE . '/', '', $cssFile) . '</code> from cache.');
+            // page css
+            $pageCSSHash = md5($css);
+            $pageCSS = ASTROID_TEMPLATE_PATH . '/css/compiled-' . $pageCSSHash . '.css';
+            if (!file_exists($pageCSS)) {
+                Helper::putContents($pageCSS, $css);
             }
-            $this->addStyleSheet('css/compiled-' . $cssVersion . '.css');
+            $this->addStyleSheet('css/compiled-' . $pageCSSHash . '.css');
+            // custom css
             if (file_exists(ASTROID_TEMPLATE_PATH . '/css/custom.css')) {
                 $this->addStyleSheet('css/custom.css');
             }
+            // return
             return '';
         } else {
             $minifier = new Minify\CSS($css);
-            return '<style type="text/css">' . $minifier->minify() . '</style>';
+            return '<style>' . $minifier->minify() . '</style>';
         }
     }
 }

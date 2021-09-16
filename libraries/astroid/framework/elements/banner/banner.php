@@ -31,7 +31,12 @@ if ($astroid_banner_visibility == "currentPage") {
       return;
    }
 }
-$style = [];
+$style = ['display:flex', 'align-items:center'];
+
+$banner_height = $params->get('astroid_banner_height', '');
+if (!empty($banner_height)) {
+   $style[] = 'height:' . $banner_height;
+}
 
 $astroid_banner_enabled = $params->get('astroid_banner_enabled');
 if ($astroid_banner_enabled) {
@@ -91,8 +96,8 @@ if ($astroid_banner_enabled) {
       $style[] = 'background-image:url(' . $astroid_banner_bgimage . ')';
    }
    $style = !empty($style) ? 'style="' . implode(';', $style) . '"' : '';
-   $styletext = [];
-   $stylesubtext = [];
+   $styletext = ['width:100%'];
+   $stylesubtext = ['width:100%'];
    if (!empty($astroid_banner_textcolor)) {
       $styletext[] = 'color:' . $astroid_banner_textcolor;
    }
@@ -108,7 +113,7 @@ if ($astroid_banner_enabled) {
          echo '<div class="' . $astroid_banner_wrapper . '">';
       }
       if ($astroid_banner_title_enabled) {
-         echo '<' . $astroid_banner_title_tag . ' class="astroid-banner-title"' . $styletext . '>' . $astroid_banner_title . '</' . $astroid_banner_title_tag . '>';
+         echo '<' . $astroid_banner_title_tag . ' class="astroid-banner-title"' . (!empty($styletext) ? ' ' . $styletext : '') . '>' . $astroid_banner_title . '</' . $astroid_banner_title_tag . '>';
          if (!empty($astroid_banner_subtitle)) {
             echo '<' . $astroid_banner_subtitle_tag . ' class="astroid-banner-subtitle"' . $stylesubtext . '>' . $astroid_banner_subtitle . '</' . $astroid_banner_subtitle_tag . '>';
          }
