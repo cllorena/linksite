@@ -3142,7 +3142,7 @@ vmdebug('createCloneWithChildren relation',$relation);
 
 		}
 
-		return array('orderby'=> $orderByList, 'manufacturer'=> $manuList);
+		//return array('orderby'=> $orderByList, 'manufacturer'=> $manuList);
 	}
 
 // **************************************************

@@ -28,6 +28,7 @@
 .productdetails-view .product-short-description{
   margin: 0 0 16px;
   padding: 0;
+  color: white;
 }
 
 .productdetails-view .product-description,.product-fields{
@@ -517,7 +518,7 @@ div.vm-details-button a {
 
 a.ask-a-question{
   font-size: 12px;
-  font-weight: 700;
+  /*font-weight: 700;*/
   display: inline-block;
   text-decoration: none;
   margin-bottom: 8px;
@@ -976,6 +977,8 @@ ul.VMmenu,.VMmenu ul,.VMmenu li{
 .browseProductImage {
   height: auto;
   max-width: 100%;
+  padding-right: 4px;
+  border-radius: 6px;
 }
 
 .browseCategoryImage {
