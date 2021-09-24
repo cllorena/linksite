@@ -3141,7 +3141,7 @@ vmdebug('createCloneWithChildren relation',$relation);
 			$manuList .= $manufacturerLink . '</div><div class="clear"></div>';
 
 		}
-
+		// clla la linea siguente la comete para que no apareciera ordenar
 		//return array('orderby'=> $orderByList, 'manufacturer'=> $manuList);
 	}
 

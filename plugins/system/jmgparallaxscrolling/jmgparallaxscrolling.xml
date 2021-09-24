@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.1.2" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_JMGPARALLAXSCROLLING</name>
+	<author>Otto Szekeres</author>
+	<authorEmail>info@joomega.com</authorEmail>
+	<authorUrl>www.joomega.com</authorUrl>
+    <creationDate>July 2019</creationDate>
+    <copyright>Copyright (C) 2019 - 2028 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<version>1.1.2</version>
+	<description>PLG_SYSTEM_JMGPARALLAXSCROLLING</description>
+
+    <updateservers>
+        <server type="extension" priority="1" name="plg_system_jmgparallaxscrolling">http://update.joomega.com/jmgparallaxscrolling/jmgparallaxscrolling.xml</server>
+    </updateservers>
+
+	<files>
+		<filename plugin="jmgparallaxscrolling">jmgparallaxscrolling.php</filename>
+		<folder>assets</folder>
+		<folder>field</folder>
+		<folder>language</folder>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB.plg_system_jmgparallaxscrolling.sys.ini</language>
+		<language tag="en-GB">en-GB.plg_system_jmgparallaxscrolling.ini</language>
+		<language tag="de-DE">de-DE.plg_system_jmgparallaxscrolling.sys.ini</language>
+		<language tag="de-DE">de-DE.plg_system_jmgparallaxscrolling.ini</language>
+	</languages>
+	
+	<config>
+		<fields name="params">
+			<fieldset name="basic">	
+					
+			</fieldset>
+		</fields>
+	 </config>
+</extension>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.3.0" client="site" method="upgrade">
+    <name>JMG Parallax</name>
+    <author>Otto Szekeres</author>
+	<authorEmail>info@joomega.com</authorEmail>
+	<authorUrl>www.joomega.com</authorUrl>
+    <version>1.2.0</version>
+    <creationDate>September 2017</creationDate>
+    <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <description><![CDATA[JMG Parallax is a nice parallax section builder module for your Joomla website, which involves the web page's background moving at a slower rate to the foreground, creating a 3D effect as you scroll.<br /><br />
+    &copy;&nbsp;2016&nbsp;Joomla! dewelopment&nbsp;<a href="http://www.joomega.com" target="_blank">Otto Szekeres</a> 
+    <br/><br/>
+    <a href="https://joomega.com/en/joomla-extensions/2-jmg-parallax" target="_blank">
+    <img src="../modules/mod_jmg_parallax/assets/img/JMG-Parallax.jpg" alt="JMG Parallax Module">
+	</a>
+    <br/><br/>
+	If you like our module <a href="https://www.facebook.com/Joomla.Module/" target="_blank">like us on Facebook</a>
+	Copyright &#169; 2012-2017 <a href="http://www.joomega.com" target="_blank" style="font-weight: bold;">Joomega</a>.
+	<br/><br/>
+    ]]>   
+    </description>
+    <files>
+        <filename module="mod_jmg_parallax">mod_jmg_parallax.php</filename>
+        <filename>mod_jmg_parallax.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+		<folder>assets</folder>
+        <folder>tmpl</folder>
+		<folder>language</folder>
+    </files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.mod_jmg_parallax.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_jmg_parallax.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.mod_jmg_parallax.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.mod_jmg_parallax.sys.ini</language>
+	</languages>
+    <config>
+	<fields name="params">
+		<fieldset name="container_settings" label="MOD_JMG_PARALLAX_CONTAINER_SETTINGS">
+		
+			<field name="parallax_container_position"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_CONTAINER_POSITION"
+				description="MOD_JMG_PARALLAX_CONTAINER_POSITION"
+				filter="string"
+			/>
+		
+			<field name="parallax_container_height"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_CONTAINER_HEIGHT"
+				description="MOD_JMG_PARALLAX_CONTAINER_HEIGHT"
+				filter="string"
+			/>
+			
+			<field name="parallax_container_width"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_CONTAINER_WIDTH"
+				description="MOD_JMG_PARALLAX_CONTAINER_WIDTH"
+				filter="string"
+			/>
+			
+			<field name="parallax_container_backgroundcolor" 
+				type="color" 
+				default="#ffffff"
+				label="MOD_JMG_PARALLAX_CONTAINER_BGCOLOR"
+				description="MOD_JMG_PARALLAX_CONTAINER_BGCOLOR"
+			/>
+			
+			<field name="note11" 
+				type="note"
+				label="MOD_JMG_PARALLAX_CONTAINER_BACKGROUND_NOTE" 
+			/>
+			
+			<field name="parallax_background_image"
+				type="media"
+				default=""
+				label="MOD_JMG_PARALLAX_BACKGROUND_IMAGE"
+				description="MOD_JMG_PARALLAX_BACKGROUND_IMAGE"
+				filter="string"
+			/>
+			
+			<field name="parallax_background_size" 
+					type="list" 
+					default="" 
+					label="MOD_JMG_PARALLAX_BACKGROUND_SIZE" 
+					description="MOD_JMG_PARALLAX_BACKGROUND_SIZE">
+					<option value="auto">auto</option>
+					<option value="cover">cover</option>
+					<option value="contain">contain</option>
+			</field>
+			
+			<field name="parallax_background_top"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_BACKGROUND_TOP"
+				description="MOD_JMG_PARALLAX_BACKGROUND_TOP"
+				filter="string"
+			/>
+			
+			<field name="parallax_background_speed"
+				type="text"
+				default="2"
+				label="MOD_JMG_PARALLAX_BACKGROUND_SPEED"
+				description="MOD_JMG_PARALLAX_BACKGROUND_SPEED"
+				filter="string"
+			/>
+				
+		</fieldset>
+		<fieldset name="article_settings" label="MOD_JMG_PARALLAX_ARTICLE_SETTINGS">
+		
+			<field name="parallax_article_container_height"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_ARTICLE_CONTAINER_HEIGHT"
+				description="MOD_JMG_PARALLAX_ARTICLE_CONTAINER_HEIGHT"
+				filter="string"
+			/>
+			
+			<field name="parallax_article_container_width"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_ARTICLE_CONTAINER_WIDTH"
+				description="MOD_JMG_PARALLAX_ARTICLE_CONTAINER_WIDTH"
+				filter="string"
+			/>
+		
+			<field name="note21" 
+				type="note"
+				label="MOD_JMG_PARALLAX_CONTAINER_BACKGROUND_NOTE" 
+			/>
+		
+			<field name="parallax_article_background_image"
+				type="media"
+				default=""
+				label="MOD_JMG_PARALLAX_ARTICLE_BACKGROUND_IMAGE"
+				description="MOD_JMG_PARALLAX_ARTICLE_BACKGROUND_IMAGE"
+				filter="string"
+			/>
+			
+			<field name="parallax_article_background_size" 
+				type="list" 
+				default="" 
+				label="MOD_JMG_PARALLAX_ARTICLE_BACKGROUND_SIZE" 
+				description="MOD_JMG_PARALLAX_ARTICLE_BACKGROUND_SIZE">
+				<option value="auto">auto</option>
+				<option value="cover">cover</option>
+				<option value="contain">contain</option>
+			</field>
+			
+			<field name="parallax_article_background_top"
+				type="text"
+				default=""
+				label="MOD_JMG_PARALLAX_ARTICLE_BACKGROUND_TOP"
+				description="MOD_JMG_PARALLAX_ARTICLE_BACKGROUND_TOP"
+				filter="string"
+			/>
+			
+		</fieldset>
+	</fields>
+    </config>
+	<updateservers>
+    	<server type="extension" priority="1" name="JMG Paralax's Updates">http://update.joomega.com/mod_jmg_paralax/extension.xml</server>
+ 	</updateservers>
+</extension>

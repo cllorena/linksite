@@ -1,0 +1,31 @@
+.jmg-admin-panel fieldset {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 0 18px;
+    padding: 4px 18px 18px;
+	display: block;
+	overflow: hidden;
+}
+
+.jmg-admin-panel legend{
+    border: 0 none;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 0 5px;
+    width: auto;
+}
+
+.jmg-admin-col-3{
+	width: 30%;
+	display: block;
+	float: left;
+	margin-right: 2%;
+}
+
+.jmg-admin-col-9{
+	width: 64%;
+	display: block;
+	float: left;
+	margin-right: 2%;
+}

@@ -1,0 +1,14 @@
+MOD_JMG_IMGHOVER="JMG Image Hover"
+
+MOD_JMG_IMGHOVER_SETTINGS="Settings"
+MOD_JMG_IMGHOVER_MORE="More"
+MOD_JMG_IMGHOVER_IMAGE="Image"
+MOD_JMG_IMGHOVER_HEAD="Headline"
+MOD_JMG_IMGHOVER_TEXT="Text"
+MOD_JMG_IMGHOVER_EFFECT="Effect"
+MOD_JMG_IMGHOVER_BACKGROUND_COLOR="Backgroundcolor"
+MOD_JMG_IMGHOVER_MENU_ID="Menu"
+MOD_JMG_IMGHOVER_LINK_TYPE="Link Type"
+MOD_JMG_IMGHOVER_URL="URL"
+MOD_JMG_IMGHOVER_MORE_SUGGESTION="Your suggestions will make this joomla module even better."
+MOD_JMG_IMGHOVER_MORE_SUGGESTION_DESC="So let us know if you need any assistance or help. <a class='btn' href='https://joomega.com/en/your-suggestion-jmg-img-hover' target='_blank'>Your suggestions</a> 

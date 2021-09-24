@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5.4" client="site" method="upgrade">
+    <name>JMG Img Hover</name>
+    <author>Otto Szekeres</author>
+    <version>1.5.5</version>
+    <description><![CDATA[
+    <link rel="stylesheet" href="../modules/mod_jmg_imghover/theme/css/admin.css" type="text/css" />
+    <div class="jmg-admin-panel">
+		<div class="jmg-admin-row">
+			<div class="jmg-admin-col-3">
+				<a href="https://joomega.com/en/joomla-extensions/1-jmg-img-hover" target="_blank">
+				<img src="../modules/mod_jmg_imghover/assets/img/JMG-Img-Hover.jpg" alt="JMG Img Hover Module">
+				</a>
+			</div>
+			<div class="jmg-admin-col-9">
+				<fieldset>
+				<legend>JMG Img Hover</legend>
+ 				<p><i>Version 1.5.4</i></p>
+				<p>is based on &copy;&nbsp;Pure CSS Image Hover Effect Library allowing you to easily implement scaleable image hover effects.</p>
+				 <p>&copy;&nbsp;2012-2017&nbsp;Joomla! dewelopment&nbsp;<a href="http://www.joomega.com" target="_blank">Otto Szekeres</a></p>
+				<p>- CSS development&nbsp;<a class="btn" href="http://imagehover.io" target="_blank">imagehover.io</a> Many thanks for the great job.</p>
+			   </fieldset>
+			   <fieldset>
+				<legend>If you like our module</legend>
+				<p>Write a review on the JED or like us on Facebook to support us and boost our motivation. Help us to make this module even better, make a suggestion.</p>
+				<p><a class="btn btn-success" href="https://extensions.joomla.org/extensions/extension/photos-a-images/images/jmg-img-hover/" target="_blank">Write your review on JED</a> 
+				<a class="btn btn-primary" href="https://www.facebook.com/Joomla.Module/" target="_blank">Like us on Facebook</a>
+				<a class="btn" href="https://joomega.com/en/your-suggestion-jmg-img-hover" target="_blank">Get in touch with our team</a></p
+				</fieldset>
+		   </div>
+	   </div>
+   </div>
+    ]]>   
+    </description>
+	
+    <files>
+	    <filename module="mod_jmg_imghover">mod_jmg_imghover.php</filename>
+        <filename>mod_jmg_imghover.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <folder>assets</folder>
+        <folder>tmpl</folder>
+        <folder>theme</folder>
+		<folder>language</folder>
+    </files>
+	
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.mod_jmg_imghover.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_jmg_imghover.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.mod_jmg_imghover.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.mod_jmg_imghover.sys.ini</language>
+	</languages>
+	
+    <config>
+		<fields name="params">
+			<fieldset name="settings" label="MOD_JMG_IMGHOVER_SETTINGS">		
+				<field name="mod_jmg_imghover_image"
+					type="media"
+					default=""
+					label="MOD_JMG_IMGHOVER_IMAGE"
+					description="MOD_JMG_IMGHOVER_IMAGE"
+					filter="string"
+				/>
+				
+				<field name="mod_jmg_imghover_head"
+					type="text"
+					default=""
+					label="MOD_JMG_IMGHOVER_HEAD"
+					description="MOD_JMG_IMGHOVER_HEAD"
+					filter="string"
+				/>
+				
+				<field name="mod_jmg_imghover_text" 
+					type="editor" 
+					default="" 
+					label="MOD_JMG_IMGHOVER_TEXT" 
+					description="MOD_JMG_IMGHOVER_TEXT" 
+					rows="5" 
+					cols="5" filter="raw"
+				/>
+				
+				<field name="mod_jmg_imghover_effect" 
+					type="list" 
+					default="" 
+					label="MOD_JMG_IMGHOVER_EFFECT" 
+					description="MOD_JMG_IMGHOVER_EFFECT">
+					<option value="imghvr-fade">fade</option>
+					<option value="imghvr-push-up">push-up</option>
+					<option value="imghvr-push-down">push-down</option>
+					<option value="imghvr-push-left">push-left</option>
+					<option value="imghvr-push-right">push-right</option>
+					<option value="imghvr-slide-up">slide-up</option>
+					<option value="imghvr-slide-down">slide-down</option>
+					<option value="imghvr-slide-left">slide-left</option>
+					<option value="imghvr-slide-right">slide-right</option>
+					<option value="imghvr-reveal-up">reveal-up</option>
+					<option value="imghvr-reveal-down">reveal-down</option>
+					<option value="imghvr-reveal-left">reveal-left</option>
+					<option value="imghvr-reveal-right">reveal-right</option>
+					<option value="imghvr-hinge-up">hinge-up</option>
+					<option value="imghvr-hinge-down">hinge-down</option>
+					<option value="imghvr-hinge-left">hinge-left</option>
+					<option value="imghvr-hinge-right">hinge-right</option>
+					<option value="imghvr-flip-horiz">flip-horiz</option>
+					<option value="imghvr-flip-vert">flip-vert</option>
+					<option value="imghvr-flip-diag-1">flip-diag-1</option>
+					<option value="imghvr-flip-diag-2">flip-diag-2</option>
+					<option value="imghvr-shutter-out-horiz">shutter-out-horiz</option>
+					<option value="imghvr-shutter-out-vert">shutter-out-vert</option>
+					<option value="imghvr-shutter-out-diag-1">shutter-out-diag-1</option>
+					<option value="imghvr-shutter-out-diag-2">shutter-out-diag-2</option>
+					<option value="imghvr-shutter-in-horiz">shutter-in-horiz</option>
+					<option value="imghvr-shutter-in-vert">shutter-in-vert</option>
+					<option value="imghvr-shutter-in-out-horiz">shutter-in-out-horiz</option>
+					<option value="imghvr-shutter-in-out-vert">shutter-in-out-vert</option>
+					<option value="imghvr-shutter-in-out-diag-1">shutter-in-out-diag-1</option>
+					<option value="imghvr-shutter-in-out-diag-2">shutter-in-out-diag-2</option>
+					<option value="imghvr-fold-up">fold-up</option>
+					<option value="imghvr-fold-down">fold-down</option>
+					<option value="imghvr-fold-left">fold-left</option>
+					<option value="imghvr-fold-right">fold-right</option>
+					<option value="imghvr-zoom-in">zoom-in</option>
+					<option value="imghvr-zoom-out">zoom-out</option>
+					<option value="imghvr-zoom-out-up">zoom-out-up</option>
+					<option value="imghvr-zoom-out-down">zoom-out-down</option>
+					<option value="imghvr-zoom-out-left">zoom-out-left</option>
+					<option value="imghvr-zoom-out-right">zoom-out-right</option>
+					<option value="imghvr-zoom-out-flip-horiz">zoom-out-flip-horiz</option>
+					<option value="imghvr-zoom-out-flip-vert">zoom-out-flip-vert</option>
+					<option value="imghvr-blur">blur</option>
+				</field>
+				
+				<field name="mod_jmg_imghover_background_color" 
+					type="color" 
+					format="rgba"
+					default="255,255,255"
+					opacity="1"
+					label="MOD_JMG_IMGHOVER_BACKGROUND_COLOR"
+					description="MOD_JMG_IMGHOVER_BACKGROUND_COLOR"
+				/>
+				
+				<field name="mod_jmg_imghover_link_type"
+					type="radio"
+					default="1"
+					class="btn-group"
+					label="MOD_JMG_IMGHOVER_LINK_TYPE"
+					description="MOD_JMG_IMGHOVER_LINK_TYPE">
+				  	<option value="1">Menu Item</option>
+				  	<option value="2">URL</option>
+				  	<option value="3">Pop-up</option>
+			  	</field>
+				
+				<field name="mod_jmg_imghover_menu_id" 
+					type="menuitem" 
+					default="45" 
+					label="MOD_JMG_IMGHOVER_MENU_ID" 
+					showon="mod_jmg_imghover_link_type:1"
+					description="MOD_JMG_IMGHOVER_MENU_ID" 
+				/>
+        	
+        		<field name="mod_jmg_imghover_url"
+					type="url"
+					default="https://www.joomega.com"
+					label="MOD_JMG_IMGHOVER_URL"
+					showon="mod_jmg_imghover_link_type:2"
+					description="MOD_JMG_IMGHOVER_URL"
+					filter="string"
+				/>
+       	
+       			<field name="mod_jmg_imghover_pop_up_image"
+					type="media"
+					default=""
+					label="MOD_JMG_IMGHOVER_IMAGE"
+					showon="mod_jmg_imghover_link_type:3"
+					description="MOD_JMG_IMGHOVER_IMAGE"
+					filter="string"
+				/>
+        	
+        		<field name="mod_jmg_imghover_box_text_wrap"
+					type="radio"
+					default="jmg-img-hover-inline"
+					class="btn-group"
+					label="MOD_JMG_IMGHOVER_BOX_TEXT_WRAP"
+					description="MOD_JMG_IMGHOVER_BOX_TEXT_WRAP">
+			  		<option value="jmg-img-hover-inline">MOD_JMG_IMGHOVER_BOX_TEXT_INLINE</option>
+				  	<option value="jmg-img-hover-left">MOD_JMG_IMGHOVER_BOX_TEXT_FLOW_LEFT</option>
+				  	<option value="jmg-img-hover-right">MOD_JMG_IMGHOVER_BOX_TEXT_FLOW_RIGHT</option>
+			  	</field>
+         	</fieldset>
+			<fieldset name="mehr" label="MOD_JMG_IMGHOVER_MORE">
+				<field name="note" 
+					type="note" 
+					class="alert alert-info" 
+					label="MOD_JMG_IMGHOVER_MORE_SUGGESTION" 
+					description="MOD_JMG_IMGHOVER_MORE_SUGGESTION_DESC" 
+				/>
+				<field name="donate" 
+					type="note" 
+					class="alert alert-info" 
+					label="MOD_JMG_IMGHOVER_MORE_DONATE" 
+					description="MOD_JMG_IMGHOVER_MORE_DONATE_DESC" 
+				/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+				/>
+
+				<field
+					name="moduleclass_sfx"
+					type="textarea"
+					default=" jmg-img-hover-moduletable"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+					rows="3"
+				/>
+
+				<field
+					name="cache"
+					type="list"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC"
+					default="1"
+					>
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field
+					name="cache_time"
+					type="text"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+					default="900"
+				/>
+
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static"
+					>
+					<option value="static"></option>
+				</field>
+			</fieldset>
+		</fields>
+    </config>
+	<updateservers>
+    	<server type="extension" priority="1" name="JMG Image Hover's Updates">http://update.joomega.com/mod_jmg_imghover/extension.xml</server>
+ 	</updateservers>
+</extension>
