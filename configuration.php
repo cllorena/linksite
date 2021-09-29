@@ -45,8 +45,8 @@ class JConfig {
 	public $cache_handler = 'file';
 	public $cachetime = '15';
 	public $cache_platformprefix = '0';
-	public $MetaDesc = 'Desarrollo de Sitios Web y Hosting';
-	public $MetaKeys = '';
+	public $MetaDesc = 'Desarrollo de Sitios Web, Servicios Linux, Aplicaciones Web, Configuraciones Linux';
+	public $MetaKeys = 'php, programador, programador php, sitios web, paginas web, servicios linux, configuración servidores, servicios internet';
 	public $MetaTitle = '1';
 	public $MetaAuthor = '1';
 	public $MetaVersion = '0';
